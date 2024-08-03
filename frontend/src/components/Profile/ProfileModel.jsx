@@ -20,11 +20,9 @@ const style = {
   borderRadius: "4px",
 };
 
-export default function ProfileModel() {
-  const [open, setOpen] = React.useState(false);
+export default function ProfileModel({ open, handleClose }) {
+  // const [open, setOpen] = React.useState(false);
   const [uploading, setUploading] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const handleSubmit = (values) => {
     console.log("handle Submit", values);
@@ -38,7 +36,7 @@ export default function ProfileModel() {
   };
   const formik = useFormik({
     initialValues: {
-      fullname: "",
+      fullName: "",
       website: "",
       location: "",
       bio: "",
@@ -51,9 +49,8 @@ export default function ProfileModel() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
-        open={true}
+        open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -69,7 +66,7 @@ export default function ProfileModel() {
               </div>
               <Button type="submit">Save</Button>
             </div>
-            <div className="overflow-y-scroll overflow-x-hidden h-[80vh]">
+            <div className="hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]">
               <React.Fragment>
                 <div className="w-full ">
                   <div className="relative">

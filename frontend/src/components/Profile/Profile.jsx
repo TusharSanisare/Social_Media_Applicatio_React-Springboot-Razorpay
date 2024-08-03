@@ -15,6 +15,10 @@ import ProfileModel from "./ProfileModel";
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState("1");
+  const [openProfileModel, setOpenProfileModel] = useState(false);
+  const handleOpenProfileModel = () => setOpenProfileModel(true);
+  const handleClose = () => setOpenProfileModel(false);
+
   const handleTabChange = (events, newValue) => {
     setTabValue(newValue);
     if (newValue === 4) {
@@ -29,9 +33,6 @@ const Profile = () => {
     navigate(-1);
   };
 
-  const handleOpenProfileModel = () => {
-    console.log("onem model");
-  };
   const handleFollowUser = () => {
     console.log("handle Follow User");
   };
@@ -149,7 +150,7 @@ const Profile = () => {
       </section>
 
       <section>
-        <ProfileModel />
+        <ProfileModel handleClose={handleClose} open={openProfileModel} />
       </section>
     </div>
   );
