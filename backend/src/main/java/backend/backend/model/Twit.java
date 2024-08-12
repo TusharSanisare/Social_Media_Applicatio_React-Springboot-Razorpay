@@ -10,6 +10,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -40,5 +41,7 @@ public class Twit {
 
   private boolean isReply;
   private boolean isTwit;
+
+  private LocalDateTime CreatedAt;
 
 }
