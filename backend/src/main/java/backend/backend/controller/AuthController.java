@@ -25,7 +25,6 @@ import backend.backend.service.CustomUserDetailsServiceImplementation;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-
   @Autowired
   private UserRepository userRepository;
   @Autowired
@@ -51,7 +50,7 @@ public class AuthController {
     User createdUser = new User();
     createdUser.setEmail(email);
     createdUser.setFullName(fullName);
-    createdUser.setPassword(password);
+    createdUser.setPassword(passwordEncoder.encode(password));
     createdUser.setBirthDate(birthDate);
     createdUser.setVerification(new Varification());
 
@@ -67,6 +66,7 @@ public class AuthController {
     return new ResponseEntity<AuthResponse>(res, HttpStatus.CREATED);
   }
 
+  @PostMapping("/signin")
   public ResponseEntity<AuthResponse> signin(@RequestBody User user) {
     String username = user.getEmail();
     String password = user.getPassword();
@@ -81,14 +81,13 @@ public class AuthController {
 
   }
 
-  @PostMapping("/signin")
   private Authentication authentication(String username, String password) {
     UserDetails userDetails = customUserDetails.loadUserByUsername(username);
 
     if (userDetails == null) {
       throw new BadCredentialsException("Invalide Username...");
     }
-    if (passwordEncoder.matches(password, userDetails.getPassword())) {
+    if (!passwordEncoder.matches(password, userDetails.getPassword())) {
       throw new BadCredentialsException("Invalide Username Or Password");
     }
 
