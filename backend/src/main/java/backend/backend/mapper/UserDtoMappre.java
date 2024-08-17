@@ -26,7 +26,7 @@ public class UserDtoMappre {
     return userDto;
   }
 
-  private static List<UserDto> toUserDeos(List<User> follower) {
+  public static List<UserDto> toUserDeos(List<User> follower) {
     List<UserDto> userDtos = new ArrayList<>();
     for (User user : follower) {
       UserDto userDto = new UserDto();
