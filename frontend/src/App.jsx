@@ -9,7 +9,7 @@ const App = () => {
       <Routes>
         <Route
           path="/*"
-          element={true ? <HomePage /> : <Authentication />}
+          element={false ? <HomePage /> : <Authentication />}
         ></Route>
       </Routes>
     </div>
