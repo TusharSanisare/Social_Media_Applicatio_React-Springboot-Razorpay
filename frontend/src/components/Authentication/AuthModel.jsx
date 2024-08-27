@@ -2,6 +2,9 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import SinginForm from "./SinginForm";
+import SignupForm from "./SignupForm";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -17,6 +20,13 @@ const style = {
 };
 
 export default function AuthModal({ open, handleClose }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    const path = location.pathname === "/signup" ? "/signin" : "/signup";
+    navigate(path);
+  };
   return (
     <div>
       <Modal
@@ -26,7 +36,25 @@ export default function AuthModal({ open, handleClose }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div className="">{<SinginForm />}</div>
+          <h1 className="text-center font-bold text-3xl pb-20">
+            Create your account
+          </h1>
+          {location.pathname === "/signup" ? <SignupForm /> : <SinginForm />}
+
+          <h1 className="text-center py-5 font-semibold text-lg text-gray-500 ">
+            {location.pathname === "/signup"
+              ? "Already have Account?"
+              : "don't have account?"}
+          </h1>
+          <Button
+            onClick={handleNavigate}
+            sx={{ borderRadius: "29px", py: "15px" }}
+            fullWidth
+            variant="outlined"
+            size="large"
+          >
+            {location.pathname === "/signup" ? "signin" : "signup"}
+          </Button>
         </Box>
       </Modal>
     </div>

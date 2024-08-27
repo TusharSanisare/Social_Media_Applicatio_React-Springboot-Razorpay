@@ -3,12 +3,15 @@ import { Button, Grid, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { blue } from "@mui/material/colors";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../Store/Auth/Action";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Emial is Required"),
   password: Yup.string().required("Password is Required"),
 });
 const SinginForm = () => {
+  const dispath = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -16,11 +19,12 @@ const SinginForm = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+      dispath(loginUser(values));
       console.log("form val ", values);
     },
   });
   return (
-    <form>
+    <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
