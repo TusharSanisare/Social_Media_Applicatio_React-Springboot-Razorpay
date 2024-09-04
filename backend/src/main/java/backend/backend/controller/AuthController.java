@@ -68,21 +68,20 @@ public class AuthController {
 
   @PostMapping("/signin")
   public ResponseEntity<AuthResponse> signin(@RequestBody User user) {
-    String username = user.getEmail();
+    String email = user.getEmail();
     String password = user.getPassword();
 
-    Authentication authentication = authentication(username, password);
+    Authentication authentication = authentication(email, password);
 
     String token = jwtProvider.generateToken(authentication);
 
     AuthResponse res = new AuthResponse(token, true);
-
     return new ResponseEntity<AuthResponse>(res, HttpStatus.ACCEPTED);
 
   }
 
-  private Authentication authentication(String username, String password) {
-    UserDetails userDetails = customUserDetails.loadUserByUsername(username);
+  private Authentication authentication(String email, String password) {
+    UserDetails userDetails = customUserDetails.loadUserByUsername(email);
 
     if (userDetails == null) {
       throw new BadCredentialsException("Invalide Username...");
@@ -90,7 +89,6 @@ public class AuthController {
     if (!passwordEncoder.matches(password, userDetails.getPassword())) {
       throw new BadCredentialsException("Invalide Username Or Password");
     }
-
     return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
   }
 }

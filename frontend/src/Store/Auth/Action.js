@@ -3,8 +3,8 @@ import {API_BASE_URL} from "../../config/api";
 import {GET_USER_PROFILE_FAILUER, GET_USER_PROFILE_SUCCESS, LOGIN_USER_FAILUER, LOGIN_USER_SUCCESS, REGISTER_USER_SUCCESS} from "./ActionType"
 
 export const loginUser = (loginData)=>async(dispatch)=>{
-  // console.log("me yaha huuu...");  1:30:00
   try{
+    console.log(loginData);
     const  {data} = await axios.post(`${API_BASE_URL}/auth/signin`, loginData);
     
     console.log("logged in user", data);

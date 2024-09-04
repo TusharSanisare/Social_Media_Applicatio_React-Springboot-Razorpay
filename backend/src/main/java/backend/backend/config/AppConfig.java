@@ -29,7 +29,8 @@ public class AppConfig {
         .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
         .csrf().disable()
         .cors().configurationSource(corsConfigurationSource()).and()
-        .httpBasic().and().formLogin();
+        .httpBasic().and().formLogin().disable();
+
     return http.build();
   }
 
@@ -38,7 +39,7 @@ public class AppConfig {
       @Override
       public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000/"));
+        cfg.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
         cfg.setAllowedMethods(Collections.singletonList("*"));
         cfg.setAllowCredentials(true);
         cfg.setAllowedHeaders(Collections.singletonList("*"));
